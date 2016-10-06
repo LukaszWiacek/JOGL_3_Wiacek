@@ -83,41 +83,21 @@ public class Wiacek implements GLEventListener {
     }
 
     public void display(GLAutoDrawable drawable) {
+        //Tworzenie obiektu
         GL gl = drawable.getGL();
-
-        // Clear the drawing area
+        //Czyszczenie przestrzeni 3D przed utworzeniem kolejnej klatki
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        // Reset the current matrix to the "identity"
+        //Resetowanie macierzy transformacji
         gl.glLoadIdentity();
 
-        // Move the "drawing cursor" around
-        gl.glTranslatef(-1.5f, 0.0f, -6.0f);
-
-        // Drawing Using Triangles
-        gl.glBegin(GL.GL_TRIANGLES);
-            gl.glColor3f(1.0f, 0.0f, 0.0f);    // Set the current drawing color to red
-            gl.glVertex3f(0.0f, 1.0f, 0.0f);   // Top
-            gl.glColor3f(0.0f, 1.0f, 0.0f);    // Set the current drawing color to green
-            gl.glVertex3f(-1.0f, -1.0f, 0.0f); // Bottom Left
-            gl.glColor3f(0.0f, 0.0f, 1.0f);    // Set the current drawing color to blue
-            gl.glVertex3f(1.0f, -1.0f, 0.0f);  // Bottom Right
-        // Finished Drawing The Triangle
-        gl.glEnd();
-
-        // Move the "drawing cursor" to another position
-        gl.glTranslatef(3.0f, 0.0f, 0.0f);
-        // Draw A Quad
-        gl.glBegin(GL.GL_QUADS);
-            gl.glColor3f(0.5f, 0.5f, 1.0f);    // Set the current drawing color to light blue
-            gl.glVertex3f(-1.0f, 1.0f, 0.0f);  // Top Left
-            gl.glVertex3f(1.0f, 1.0f, 0.0f);   // Top Right
-            gl.glVertex3f(1.0f, -1.0f, 0.0f);  // Bottom Right
-            gl.glVertex3f(-1.0f, -1.0f, 0.0f); // Bottom Left
-        // Done Drawing The Quad
-        gl.glEnd();
-
-        // Flush all drawing operations to the graphics card
+         //Wykonanie wszystkich operacji znajduj¹cych siê w buforze
         gl.glFlush();
+        gl.glBegin(GL.GL_TRIANGLES);
+        gl.glVertex3f(-1.0f, 1.0f, -6.0f);
+        gl.glVertex3f(-2.0f,-1.0f, -6.0f);
+        gl.glVertex3f( 0.0f,-1.0f, -6.0f);
+        gl.glEnd();
+
     }
 
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
