@@ -85,6 +85,7 @@ public class Wiacek implements GLEventListener {
     public void display(GLAutoDrawable drawable) {
         //Tworzenie obiektu
         GL gl = drawable.getGL();
+        
         //Czyszczenie przestrzeni 3D przed utworzeniem kolejnej klatki
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         //Resetowanie macierzy transformacji
@@ -96,6 +97,14 @@ public class Wiacek implements GLEventListener {
         gl.glVertex3f(-1.0f, 1.0f, -6.0f);
         gl.glVertex3f(-2.0f,-1.0f, -6.0f);
         gl.glVertex3f( 0.0f,-1.0f, -6.0f);
+        gl.glEnd();
+        
+              gl.glFlush();
+        gl.glBegin(GL.GL_QUADS);
+        gl.glVertex3f(1.50f, 1.0f, -6.0f);
+        gl.glVertex3f(2.50f, 1.0f, -6.0f);
+        gl.glVertex3f( 2.5f,-1.0f, -6.0f);
+        gl.glVertex3f( 1.5f,-1.0f, -6.0f);
         gl.glEnd();
 
     }
