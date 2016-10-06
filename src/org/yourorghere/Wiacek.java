@@ -85,27 +85,41 @@ public class Wiacek implements GLEventListener {
     public void display(GLAutoDrawable drawable) {
         //Tworzenie obiektu
         GL gl = drawable.getGL();
-        
+        GL g2 = drawable.getGL();
+        GL g3 = drawable.getGL();
         //Czyszczenie przestrzeni 3D przed utworzeniem kolejnej klatki
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         //Resetowanie macierzy transformacji
         gl.glLoadIdentity();
-
+ 
+    gl.glColor3f(0.0f,0.0f,3.0f);
+   
          //Wykonanie wszystkich operacji znajduj¹cych siê w buforze
         gl.glFlush();
         gl.glBegin(GL.GL_TRIANGLES);
-        gl.glVertex3f(-1.0f, 1.0f, -6.0f);
-        gl.glVertex3f(-2.0f,-1.0f, -6.0f);
-        gl.glVertex3f( 0.0f,-1.0f, -6.0f);
+
+        gl.glVertex3f(-1.0f, 1.2f, -10.0f);
+        gl.glVertex3f(-2.0f,-1.2f, -10.0f);
+        gl.glVertex3f( 0.0f,-1.2f, -10.0f);
         gl.glEnd();
         
-              gl.glFlush();
-        gl.glBegin(GL.GL_QUADS);
-        gl.glVertex3f(1.50f, 1.0f, -6.0f);
-        gl.glVertex3f(2.50f, 1.0f, -6.0f);
-        gl.glVertex3f( 2.5f,-1.0f, -6.0f);
-        gl.glVertex3f( 1.5f,-1.0f, -6.0f);
-        gl.glEnd();
+              g2.glFlush();
+        g2.glBegin(GL.GL_QUADS);
+        g2.glColor3f( 5.0f,2.0f,1.0f);
+        g2.glVertex3f( -2.0f, -1.2f, -10.0f);
+        g2.glVertex3f(-0.0f, -1.2f, -10.0f);
+        g2.glVertex3f( -0f, -3.0f, -10.0f);
+        g2.glVertex3f( -2.0f, -3.0f, -10.0f);
+        g2.glEnd();
+        
+                   g3.glFlush();
+        g3.glBegin(GL.GL_QUADS);
+          g3.glColor3f(0.0f,0.0f,3.0f);
+        g3.glVertex3f( -1.0f, -2.5f, -10.0f);
+        g3.glVertex3f(-1.0f, -3.0f, -10.0f);
+        g3.glVertex3f( -0.5f, -3.0f, -10.0f);
+        g3.glVertex3f( -0.5f, -2.5f, -10.0f);
+        g3.glEnd();
 
     }
 
