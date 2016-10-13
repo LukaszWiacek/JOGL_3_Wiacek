@@ -9,13 +9,6 @@ import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
-/**
- * SimpleJOGL.java <BR>
- * author: Brian Paul (converted to Java by Ron Cemer and Sven Goethel)
- * <P>
- *
- * This version is equal to Brian Paul's version 1.2 1999/10/21
- */
 public class Wiacek implements GLEventListener {
 
     //statyczne pola okreœlaj¹ce rotacjê wokó³ osi X i Y
@@ -106,38 +99,46 @@ public class Wiacek implements GLEventListener {
 
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
-        // Clear the drawing area
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        // Reset the current matrix to the "identity"
         gl.glLoadIdentity();
         gl.glTranslatef(0.0f, 0.0f, -6.0f); //przesuni?cie o 6 jednostek
-        gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó? osi X
-        gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó? osi Y
-        //Tu piszemy kod tworz?cy obiekty 3D
-        // Flush all drawing operations to the graphics card
+        gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokól osi X
+        gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokól osi Y
 
-        float x, y, kat1, kat2;
-        // KO?O 
+        //kolo
+        float x, y, kat, kat3;
         gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glColor3f(1.0f, 1.0f, 1.0f);
-        gl.glVertex3f(0.0f, 0.0f, 2.0f); //?rodek
-        for (kat1 = (float) (2.0f * Math.PI); kat1 > 0.0f;
-                kat1 -= (Math.PI / 32.0f)) {
-            x = 1.0f * (float) Math.sin(kat1);
-            y = 1.0f * (float) Math.cos(kat1);
-            gl.glVertex3f(x, y, 2.0f); //kolejne punkty
+        gl.glColor3f(1.0f, 1.0f, 0.0f);
+        gl.glVertex3f(1.0f, 0.0f, 0.0f); //?rodek
+        for (kat = 0.0f; kat < (2.0f * Math.PI);
+                kat += (Math.PI / 32.0f)) {
+            x = 1.0f * (float) Math.sin(kat);
+            y = 1.0f * (float) Math.cos(kat);
+            gl.glVertex3f(x, y, 0.0f); 
         }
         gl.glEnd();
 
-        // PROSTOK?TY
+        //kolo2
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glColor3f(1.0f, 2.0f, 1.0f);
+        gl.glVertex3f(0.0f, 0.0f, 2.0f); 
+        for (kat = (float) (2.0f * Math.PI); kat > 0.0f;
+                kat -= (Math.PI / 32.0f)) {
+            x = 1.0f * (float) Math.sin(kat);
+            y = 1.0f * (float) Math.cos(kat);
+            gl.glVertex3f(x, y, 2.0f); 
+        }
+        gl.glEnd();
+
+        //walec
         gl.glBegin(GL.GL_QUAD_STRIP);
-        gl.glColor3f(1.0f, 1.0f, 0.0f);
-        for (kat2 = (float) (2.0f * Math.PI); kat2 > 0.0f;
-                kat2 -= (Math.PI / 32.0f)) {
-            x = 1.0f * (float) Math.sin(kat2);
-            y = 1.0f * (float) Math.cos(kat2);
+        gl.glColor3f(0.0f, 2.0f, 3.0f);
+        for (kat3 = (float) (2.0f * Math.PI); kat3 > 0.0f;
+                kat3 -= (Math.PI / 32.0f)) {
+            x = 1.0f * (float) Math.sin(kat3);
+            y = 1.0f * (float) Math.cos(kat3);
             gl.glVertex3f(x, y, 2.0f);
-            gl.glVertex3f(0.0f, 0.0f, 0.0f);
+            gl.glVertex3f(x, y, 0.0f);
         }
         gl.glEnd();
         gl.glFlush();
