@@ -12,6 +12,13 @@ import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
+/**
+ * Projekt1.java <BR>
+ * author: Brian Paul (converted to Java by Ron Cemer and Sven Goethel)
+ * <P>
+ *
+ * This version is equal to Brian Paul's version 1.2 1999/10/21
+ */
 public class Wiacek implements GLEventListener {
 //statyczne pola okre?laj?ce rotacj? wokó? osi X i Y
 
@@ -147,9 +154,81 @@ public class Wiacek implements GLEventListener {
         gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(45.0f, h, 1.0, 20.0);
+        //glu.gluPerspective(45.0f, h, 1.0, 20.0);
+
+        float ilor;
+
+        if (width <= height) {
+            ilor = height / width;
+            gl.glOrtho(-10.0f, 10.0f, -10.0f * ilor, 10.0f * ilor, -10.0f, 20.0f);
+        } else {
+            ilor = width / height;
+            gl.glOrtho(-10.0f * ilor, 10.0f * ilor, -10.0f, 10.0f, -10.0f, 20.0f);
+
+        }
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
+    }
+
+    void stozek(GL gl) {
+//wywo?ujemy automatyczne normalizowanie normalnych
+        gl.glEnable(GL.GL_NORMALIZE);
+        float x, y, kat;
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glVertex3f(0.0f, 0.0f, -2.0f); //wierzcholek stozka
+        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
+            x = (float) Math.sin(kat);
+            y = (float) Math.cos(kat);
+            gl.glNormal3f((float) Math.sin(kat), (float) Math.cos(kat), -2.0f);
+            gl.glVertex3f(x, y, 0.0f);
+        }
+        gl.glEnd();
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);
+        gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
+        for (kat = 2.0f * (float) Math.PI; kat > 0.0f; kat -= (Math.PI / 32.0f)) {
+            x = (float) Math.sin(kat);
+            y = (float) Math.cos(kat);
+            gl.glVertex3f(x, y, 0.0f);
+        }
+        gl.glEnd();
+
+    }
+
+    void walec(GL gl) {
+//wywo?ujemy automatyczne normalizowanie normalnych
+//bo operacja skalowania je zniekszta?ci
+        gl.glEnable(GL.GL_NORMALIZE);
+        float x, y, kat;
+        gl.glBegin(GL.GL_QUAD_STRIP);
+        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
+            x = 0.5f * (float) Math.sin(kat);
+            y = 0.5f * (float) Math.cos(kat);
+            gl.glNormal3f((float) Math.sin(kat), (float) Math.cos(kat), 0.0f);
+            gl.glVertex3f(x, y, -1.0f);
+            gl.glVertex3f(x, y, 0.0f);
+        }
+        gl.glEnd();
+        gl.glNormal3f(0.0f, 0.0f, -1.0f);
+        x = y = kat = 0.0f;
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glVertex3f(0.0f, 0.0f, -1.0f); //srodek kola
+        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
+            x = 0.5f * (float) Math.sin(kat);
+            y = 0.5f * (float) Math.cos(kat);
+            gl.glVertex3f(x, y, -1.0f);
+        }
+        gl.glEnd();
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);
+        x = y = kat = 0.0f;
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
+        for (kat = 2.0f * (float) Math.PI; kat > 0.0f; kat -= (Math.PI / 32.0f)) {
+            x = 0.5f * (float) Math.sin(kat);
+            y = 0.5f * (float) Math.cos(kat);
+            gl.glVertex3f(x, y, 0.0f);
+        }
+        gl.glEnd();
     }
 
     public void display(GLAutoDrawable drawable) {
@@ -159,7 +238,7 @@ public class Wiacek implements GLEventListener {
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         // Reset the current matrix to the "identity"
         gl.glLoadIdentity();
-        gl.glTranslatef(0.0f, 0.0f, -10.0f); //przesuni?cie o 6 jednostek
+        gl.glTranslatef(0.0f, 0.0f, -20.0f); //przesuni?cie o 6 jednostek
         gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó? osi X
         gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó? osi Y
 
@@ -172,11 +251,11 @@ public class Wiacek implements GLEventListener {
         gl.glEnable(GL.GL_LIGHT0); //uaktywnienie ?ród?a ?wiat?a nr. 0
         gl.glEnable(GL.GL_COLOR_MATERIAL);
 
-        for (int k = 0; k < 3; k++) {
+        for (int i = 0; i < 3; i++) {
             drzewko(gl);
-            gl.glTranslatef(4.0f, 0.0f, 0.0f);
+            gl.glTranslatef(3.0f, 0.0f, 0.0f);
             drzewko(gl);
-            gl.glTranslatef(-4.0f, 4.0f, 0.0f);
+            gl.glTranslatef(-2.0f, 3.0f, 0.0f);
         }
 
 //gl.glBegin(GL.GL_QUADS);
@@ -304,67 +383,6 @@ public class Wiacek implements GLEventListener {
         gl.glTranslatef(0.0f, 0.0f, 1.0f);
         walec(gl);
         gl.glPopMatrix();
-    }
-
-    void walec(GL gl) {
-//wywo?ujemy automatyczne normalizowanie normalnych
-//bo operacja skalowania je zniekszta?ci
-        gl.glEnable(GL.GL_NORMALIZE);
-        float x, y, kat;
-        gl.glBegin(GL.GL_QUAD_STRIP);
-        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
-            x = 0.5f * (float) Math.sin(kat);
-            y = 0.5f * (float) Math.cos(kat);
-            gl.glNormal3f((float) Math.sin(kat), (float) Math.cos(kat), 0.0f);
-            gl.glVertex3f(x, y, -1.0f);
-            gl.glVertex3f(x, y, 0.0f);
-        }
-        gl.glEnd();
-        gl.glNormal3f(0.0f, 0.0f, -1.0f);
-        x = y = kat = 0.0f;
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glVertex3f(0.0f, 0.0f, -1.0f); //srodek kola
-        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
-            x = 0.5f * (float) Math.sin(kat);
-            y = 0.5f * (float) Math.cos(kat);
-            gl.glVertex3f(x, y, -1.0f);
-        }
-        gl.glEnd();
-        gl.glNormal3f(0.0f, 0.0f, 1.0f);
-        x = y = kat = 0.0f;
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
-        for (kat = 2.0f * (float) Math.PI; kat > 0.0f; kat -= (Math.PI / 32.0f)) {
-            x = 0.5f * (float) Math.sin(kat);
-            y = 0.5f * (float) Math.cos(kat);
-            gl.glVertex3f(x, y, 0.0f);
-        }
-        gl.glEnd();
-    }
-
-    void stozek(GL gl) {
-//wywo?ujemy automatyczne normalizowanie normalnych
-        gl.glEnable(GL.GL_NORMALIZE);
-        float x, y, kat;
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glVertex3f(0.0f, 0.0f, -2.0f); //wierzcholek stozka
-        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
-            x = (float) Math.sin(kat);
-            y = (float) Math.cos(kat);
-            gl.glNormal3f((float) Math.sin(kat), (float) Math.cos(kat), -2.0f);
-            gl.glVertex3f(x, y, 0.0f);
-        }
-        gl.glEnd();
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glNormal3f(0.0f, 0.0f, 1.0f);
-        gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
-        for (kat = 2.0f * (float) Math.PI; kat > 0.0f; kat -= (Math.PI / 32.0f)) {
-            x = (float) Math.sin(kat);
-            y = (float) Math.cos(kat);
-            gl.glVertex3f(x, y, 0.0f);
-        }
-        gl.glEnd();
-
     }
 
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
