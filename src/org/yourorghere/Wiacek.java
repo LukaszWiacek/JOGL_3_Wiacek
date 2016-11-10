@@ -12,16 +12,16 @@ import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
-
 public class Wiacek implements GLEventListener {
 //statyczne pola okre?laj?ce rotacj? wokó? osi X i Y
- private static float xrot = 0.0f, yrot = 0.0f;
 
-   public  static float ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f };//swiat?o otaczaj?ce
-   public     static float diffuseLight[] = { 0.7f, 0.7f, 0.7f, 1.0f };//?wiat?o rozproszone
-   public      static float specular[] = { 1.0f, 1.0f, 1.0f, 1.0f}; //?wiat?o odbite
-   public       static float lightPos[] = { 0.0f, 150.0f, 150.0f, 1.0f };//pozycja ?wiat?a
- 
+    private static float xrot = 0.0f, yrot = 0.0f;
+
+    public static float ambientLight[] = {0.3f, 0.3f, 0.3f, 1.0f};//swiat?o otaczaj?ce
+    public static float diffuseLight[] = {0.7f, 0.7f, 0.7f, 1.0f};//?wiat?o rozproszone
+    public static float specular[] = {1.0f, 1.0f, 1.0f, 1.0f}; //?wiat?o odbite
+    public static float lightPos[] = {0.0f, 150.0f, 150.0f, 1.0f};//pozycja ?wiat?a
+
     public static void main(String[] args) {
         Frame frame = new Frame("Simple JOGL Application");
         GLCanvas canvas = new GLCanvas();
@@ -47,55 +47,57 @@ public class Wiacek implements GLEventListener {
             }
         });
         //Obs?uga klawiszy strza?ek
- frame.addKeyListener(new KeyListener()
- {
- public void keyPressed(KeyEvent e)
- {
- if(e.getKeyCode() == KeyEvent.VK_UP)
- xrot -= 1.0f;
- if(e.getKeyCode() == KeyEvent.VK_DOWN)
- xrot +=1.0f;
- if(e.getKeyCode() == KeyEvent.VK_RIGHT)
- yrot += 1.0f;
- if(e.getKeyCode() == KeyEvent.VK_LEFT)
- yrot -=1.0f;
- 
- 
- if(e.getKeyChar()=='q'){
-     ambientLight= new float[]{ambientLight[0]-0.1f, ambientLight[1]-0.1f,ambientLight[2]-0.1f,ambientLight[3]-0.01f};
-     }
-  if(e.getKeyChar()=='w'){
-     ambientLight= new float[]{ambientLight[0]+0.1f, ambientLight[1]+0.1f,ambientLight[2]+0.1f,ambientLight[3]+0.01f};
-     }
-  if(e.getKeyChar()=='a'){
-     diffuseLight= new float[]{diffuseLight[0]-0.1f, diffuseLight[1]-0.1f,diffuseLight[2]-0.1f,diffuseLight[3]-0.01f};
-     }
-  if(e.getKeyChar()=='s'){
-     diffuseLight= new float[]{diffuseLight[0]+0.1f, diffuseLight[1]+0.1f,diffuseLight[2]+0.1f,diffuseLight[3]+0.01f};
-     }
-  if(e.getKeyChar()=='z'){
-     specular= new float[]{specular[0]-0.1f, specular[1]-0.1f,specular[2]-0.1f,specular[3]-0.01f};
-     }
-  if(e.getKeyChar()=='x'){
-     specular= new float[]{specular[0]+0.1f, specular[1]+0.1f,specular[2]+0.1f,specular[3]+0.01f};
-     }
-  if(e.getKeyChar()=='k'){
-     lightPos= new float[]{lightPos[0]-0.1f, lightPos[1]-0.1f,lightPos[2]-0.1f,lightPos[3]-0.01f};
-     }
-  if(e.getKeyChar()=='l'){
-     lightPos= new float[]{lightPos[0]+0.1f, lightPos[1]+0.1f,lightPos[2]+0.1f,lightPos[3]+0.01f};
-     }
- }
- public void keyReleased(KeyEvent e){}
- public void keyTyped(KeyEvent e){}
- });
+        frame.addKeyListener(new KeyListener() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    xrot -= 1.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    xrot += 1.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    yrot += 1.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    yrot -= 1.0f;
+                }
+
+                if (e.getKeyChar() == 'q') {
+                    ambientLight = new float[]{ambientLight[0] - 0.1f, ambientLight[1] - 0.1f, ambientLight[2] - 0.1f, ambientLight[3] - 0.01f};
+                }
+                if (e.getKeyChar() == 'w') {
+                    ambientLight = new float[]{ambientLight[0] + 0.1f, ambientLight[1] + 0.1f, ambientLight[2] + 0.1f, ambientLight[3] + 0.01f};
+                }
+                if (e.getKeyChar() == 'a') {
+                    diffuseLight = new float[]{diffuseLight[0] - 0.1f, diffuseLight[1] - 0.1f, diffuseLight[2] - 0.1f, diffuseLight[3] - 0.01f};
+                }
+                if (e.getKeyChar() == 's') {
+                    diffuseLight = new float[]{diffuseLight[0] + 0.1f, diffuseLight[1] + 0.1f, diffuseLight[2] + 0.1f, diffuseLight[3] + 0.01f};
+                }
+                if (e.getKeyChar() == 'z') {
+                    specular = new float[]{specular[0] - 0.1f, specular[1] - 0.1f, specular[2] - 0.1f, specular[3] - 0.01f};
+                }
+                if (e.getKeyChar() == 'x') {
+                    specular = new float[]{specular[0] + 0.1f, specular[1] + 0.1f, specular[2] + 0.1f, specular[3] + 0.01f};
+                }
+                if (e.getKeyChar() == 'k') {
+                    lightPos = new float[]{lightPos[0] - 0.1f, lightPos[1] - 0.1f, lightPos[2] - 0.1f, lightPos[3] - 0.01f};
+                }
+                if (e.getKeyChar() == 'l') {
+                    lightPos = new float[]{lightPos[0] + 0.1f, lightPos[1] + 0.1f, lightPos[2] + 0.1f, lightPos[3] + 0.01f};
+                }
+            }
+
+            public void keyReleased(KeyEvent e) {
+            }
+
+            public void keyTyped(KeyEvent e) {
+            }
+        });
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         animator.start();
-   
-        
-        
-        
+
     }
 
     public void init(GLAutoDrawable drawable) {
@@ -108,25 +110,24 @@ public class Wiacek implements GLEventListener {
         // Enable VSync
         gl.setSwapInterval(1);
 
-    //warto?ci sk?adowe o?wietlenia i koordynaty ?ród?a ?wiat?a
-    
+        //warto?ci sk?adowe o?wietlenia i koordynaty ?ród?a ?wiat?a
         //(czwarty parametr okre?la odleg?o?? ?ród?a:
         //0.0f-niesko?czona; 1.0f-okre?lona przez pozosta?e parametry)
         gl.glEnable(GL.GL_LIGHTING); //uaktywnienie o?wietlenia
         //ustawienie parametrów ?ród?a ?wiat?a nr. 0
-        gl.glLightfv(GL.GL_LIGHT0,GL.GL_AMBIENT,ambientLight,0); //swiat?o otaczaj?ce
-        gl.glLightfv(GL.GL_LIGHT0,GL.GL_DIFFUSE,diffuseLight,0); //?wiat?o rozproszone
-        gl.glLightfv(GL.GL_LIGHT0,GL.GL_SPECULAR,specular,0); //?wiat?o odbite
-        gl.glLightfv(GL.GL_LIGHT0,GL.GL_POSITION,lightPos,0); //pozycja ?wiat?a
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambientLight, 0); //swiat?o otaczaj?ce
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuseLight, 0); //?wiat?o rozproszone
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, specular, 0); //?wiat?o odbite
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, lightPos, 0); //pozycja ?wiat?a
         gl.glEnable(GL.GL_LIGHT0); //uaktywnienie ?ród?a ?wiat?a nr. 0
         gl.glEnable(GL.GL_COLOR_MATERIAL); //uaktywnienie ?ledzenia kolorów
         //kolory b?d? ustalane za pomoc? glColor
         gl.glColorMaterial(GL.GL_FRONT, GL.GL_AMBIENT_AND_DIFFUSE);
         //Ustawienie jasno?ci i odblaskowo?ci obiektów
-        float specref[] = { 1.0f, 1.0f, 1.0f, 1.0f }; //parametry odblaskowo?ci
-        gl.glMaterialfv(GL.GL_FRONT, GL.GL_SPECULAR,specref,0);
-        
-        gl.glMateriali(GL.GL_FRONT,GL.GL_SHININESS,128);
+        float specref[] = {1.0f, 1.0f, 1.0f, 1.0f}; //parametry odblaskowo?ci
+        gl.glMaterialfv(GL.GL_FRONT, GL.GL_SPECULAR, specref, 0);
+
+        gl.glMateriali(GL.GL_FRONT, GL.GL_SHININESS, 128);
 
         gl.glEnable(GL.GL_DEPTH_TEST);
         // Setup the drawing area and shading mode
@@ -134,13 +135,12 @@ public class Wiacek implements GLEventListener {
         gl.glShadeModel(GL.GL_SMOOTH); // try setting this to GL_FLAT and see what happens.
     }
 
-
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
         GL gl = drawable.getGL();
         GLU glu = new GLU();
 
         if (height <= 0) { // avoid a divide by zero error!
-        
+
             height = 1;
         }
         final float h = (float) width / (float) height;
@@ -160,21 +160,25 @@ public class Wiacek implements GLEventListener {
         // Reset the current matrix to the "identity"
         gl.glLoadIdentity();
         gl.glTranslatef(0.0f, 0.0f, -10.0f); //przesuni?cie o 6 jednostek
- gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó? osi X
- gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó? osi Y
- 
-  gl.glEnable(GL.GL_LIGHTING); //uaktywnienie o?wietlenia
-        //ustawienie parametrów ?ród?a ?wiat?a nr. 0
-        gl.glLightfv(GL.GL_LIGHT0,GL.GL_AMBIENT,ambientLight,0); //swiat?o otaczaj?ce
-        gl.glLightfv(GL.GL_LIGHT0,GL.GL_DIFFUSE,diffuseLight,0); //?wiat?o rozproszone
-        gl.glLightfv(GL.GL_LIGHT0,GL.GL_SPECULAR,specular,0); //?wiat?o odbite
-        gl.glLightfv(GL.GL_LIGHT0,GL.GL_POSITION,lightPos,0); //pozycja ?wiat?a
-        gl.glEnable(GL.GL_LIGHT0); //uaktywnienie ?ród?a ?wiat?a nr. 0
-        gl.glEnable(GL.GL_COLOR_MATERIAL); 
-        
-        drzewko(gl);
+        gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó? osi X
+        gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó? osi Y
 
-     
+        gl.glEnable(GL.GL_LIGHTING); //uaktywnienie o?wietlenia
+        //ustawienie parametrów ?ród?a ?wiat?a nr. 0
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambientLight, 0); //swiat?o otaczaj?ce
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuseLight, 0); //?wiat?o rozproszone
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, specular, 0); //?wiat?o odbite
+        gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, lightPos, 0); //pozycja ?wiat?a
+        gl.glEnable(GL.GL_LIGHT0); //uaktywnienie ?ród?a ?wiat?a nr. 0
+        gl.glEnable(GL.GL_COLOR_MATERIAL);
+
+        for (int k = 0; k < 3; k++) {
+            drzewko(gl);
+            gl.glTranslatef(4.0f, 0.0f, 0.0f);
+            drzewko(gl);
+            gl.glTranslatef(-4.0f, 4.0f, 0.0f);
+        }
+
 //gl.glBegin(GL.GL_QUADS);
 ////?ciana przednia
 //gl.glColor3f(1.0f,0.0f,0.0f);
@@ -214,9 +218,7 @@ public class Wiacek implements GLEventListener {
 //gl.glVertex3f(1.0f,1.0f,-1.0f);
 //gl.glVertex3f(-1.0f,1.0f,-1.0f);
 //gl.glEnd();
- 
 //ostroslup
- 
 // gl.glBegin(GL.GL_QUADS);
 // gl.glColor3f(0.0f,0.5f,1.0f);
 //gl.glVertex3f(-1.0f,-1.0f,1.0f);
@@ -246,7 +248,7 @@ public class Wiacek implements GLEventListener {
 //gl.glVertex3f(-1.0f,-1.0f,1.0f);
 //gl.glVertex3f(1.0f,-1.0f,1.0f);
 //gl.glEnd(); 
- //walec
+        //walec
 // float x,y,kat;
 //gl.glBegin(GL.GL_TRIANGLE_FAN);
 //gl.glVertex3f(0.0f,1.0f, .0f); //?rodek
@@ -280,98 +282,91 @@ public class Wiacek implements GLEventListener {
 // gl.glVertex3f(x2,-1.0f,y2);//kolejne punkty
 //}
 // gl.glEnd();       // Flush all drawing operations to the graphics card
-      //  gl.glFlush();
-       
-  //drzewko      
-     
+        //  gl.glFlush();
+        //drzewko      
     }
-    
-    void drzewko(GL gl){
-           gl.glColor3f(0.0f,1.0f,0.0f);
+
+    void drzewko(GL gl) {
+        gl.glPushMatrix();
+        gl.glColor3f(0.0f, 1.0f, 0.0f);
         stozek(gl);
-        
-          gl.glScalef(1.2f, 1.2f, 1.0f);
-        gl.glTranslatef(0.0f,0.0f,1.0f);
+
+        gl.glScalef(1.2f, 1.2f, 1.0f);
+        gl.glTranslatef(0.0f, 0.0f, 1.0f);
         stozek(gl);
-        
-          gl.glScalef(1.4f, 1.4f, 1.0f);
-         gl.glTranslatef(0.0f,0.0f,1.0f);
+
+        gl.glScalef(1.4f, 1.4f, 1.0f);
+        gl.glTranslatef(0.0f, 0.0f, 1.0f);
         stozek(gl);
-        
-        gl.glColor3f(0.0f,0.0f,0.0f);
-          gl.glScalef(0.7f, 0.7f, 1.0f);
-         gl.glTranslatef(0.0f,0.0f,1.0f);
+
+        gl.glColor3f(0.0f, 0.0f, 0.0f);
+        gl.glScalef(0.7f, 0.7f, 1.0f);
+        gl.glTranslatef(0.0f, 0.0f, 1.0f);
         walec(gl);
+        gl.glPopMatrix();
     }
-    
-    void walec(GL gl)
- {
+
+    void walec(GL gl) {
 //wywo?ujemy automatyczne normalizowanie normalnych
 //bo operacja skalowania je zniekszta?ci
-gl.glEnable(GL.GL_NORMALIZE);
-float x,y,kat;
-gl.glBegin(GL.GL_QUAD_STRIP);
-for(kat = 0.0f; kat < (2.0f*Math.PI); kat += (Math.PI/32.0f))
-{
-x = 0.5f*(float)Math.sin(kat);
-y = 0.5f*(float)Math.cos(kat);
-gl.glNormal3f((float)Math.sin(kat),(float)Math.cos(kat),0.0f);
-gl.glVertex3f(x, y, -1.0f);
-gl.glVertex3f(x, y, 0.0f);
-}
-gl.glEnd();
-gl.glNormal3f(0.0f,0.0f,-1.0f);
-x=y=kat=0.0f;
-gl.glBegin(GL.GL_TRIANGLE_FAN);
-gl.glVertex3f(0.0f, 0.0f, -1.0f); //srodek kola
-for(kat = 0.0f; kat < (2.0f*Math.PI); kat += (Math.PI/32.0f))
-{
-x = 0.5f*(float)Math.sin(kat);
-y = 0.5f*(float)Math.cos(kat);
-gl.glVertex3f(x, y, -1.0f);
-}
-gl.glEnd();
-gl.glNormal3f(0.0f,0.0f,1.0f);
-x=y=kat=0.0f;
-gl.glBegin(GL.GL_TRIANGLE_FAN);
-gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
-for(kat = 2.0f*(float)Math.PI; kat > 0.0f ; kat -= (Math.PI/32.0f))
-{
-x = 0.5f*(float)Math.sin(kat);
-y = 0.5f*(float)Math.cos(kat);
-gl.glVertex3f(x, y, 0.0f);
-}
-gl.glEnd();
-}
+        gl.glEnable(GL.GL_NORMALIZE);
+        float x, y, kat;
+        gl.glBegin(GL.GL_QUAD_STRIP);
+        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
+            x = 0.5f * (float) Math.sin(kat);
+            y = 0.5f * (float) Math.cos(kat);
+            gl.glNormal3f((float) Math.sin(kat), (float) Math.cos(kat), 0.0f);
+            gl.glVertex3f(x, y, -1.0f);
+            gl.glVertex3f(x, y, 0.0f);
+        }
+        gl.glEnd();
+        gl.glNormal3f(0.0f, 0.0f, -1.0f);
+        x = y = kat = 0.0f;
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glVertex3f(0.0f, 0.0f, -1.0f); //srodek kola
+        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
+            x = 0.5f * (float) Math.sin(kat);
+            y = 0.5f * (float) Math.cos(kat);
+            gl.glVertex3f(x, y, -1.0f);
+        }
+        gl.glEnd();
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);
+        x = y = kat = 0.0f;
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
+        for (kat = 2.0f * (float) Math.PI; kat > 0.0f; kat -= (Math.PI / 32.0f)) {
+            x = 0.5f * (float) Math.sin(kat);
+            y = 0.5f * (float) Math.cos(kat);
+            gl.glVertex3f(x, y, 0.0f);
+        }
+        gl.glEnd();
+    }
 
-void stozek(GL gl)
-{
+    void stozek(GL gl) {
 //wywo?ujemy automatyczne normalizowanie normalnych
-gl.glEnable(GL.GL_NORMALIZE);
-float x,y,kat;
-gl.glBegin(GL.GL_TRIANGLE_FAN);
-gl.glVertex3f(0.0f, 0.0f, -2.0f); //wierzcholek stozka
-for(kat = 0.0f; kat < (2.0f*Math.PI); kat += (Math.PI/32.0f))
-{
-x = (float)Math.sin(kat);
-y = (float)Math.cos(kat);
-gl.glNormal3f((float)Math.sin(kat),(float)Math.cos(kat),-2.0f);
-gl.glVertex3f(x, y, 0.0f);
-}
-gl.glEnd();
-gl.glBegin(GL.GL_TRIANGLE_FAN);
-gl.glNormal3f(0.0f,0.0f,1.0f);
-gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
-for(kat = 2.0f*(float)Math.PI; kat > 0.0f; kat -= (Math.PI/32.0f))
-{
-x = (float)Math.sin(kat);
-y = (float)Math.cos(kat);
-gl.glVertex3f(x, y, 0.0f);
-}
-gl.glEnd();
+        gl.glEnable(GL.GL_NORMALIZE);
+        float x, y, kat;
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glVertex3f(0.0f, 0.0f, -2.0f); //wierzcholek stozka
+        for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
+            x = (float) Math.sin(kat);
+            y = (float) Math.cos(kat);
+            gl.glNormal3f((float) Math.sin(kat), (float) Math.cos(kat), -2.0f);
+            gl.glVertex3f(x, y, 0.0f);
+        }
+        gl.glEnd();
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);
+        gl.glVertex3f(0.0f, 0.0f, 0.0f); //srodek kola
+        for (kat = 2.0f * (float) Math.PI; kat > 0.0f; kat -= (Math.PI / 32.0f)) {
+            x = (float) Math.sin(kat);
+            y = (float) Math.cos(kat);
+            gl.glVertex3f(x, y, 0.0f);
+        }
+        gl.glEnd();
 
-}
-    
+    }
+
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
     }
 }
