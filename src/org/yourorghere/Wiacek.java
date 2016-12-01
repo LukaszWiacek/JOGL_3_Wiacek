@@ -284,7 +284,7 @@ public class Wiacek implements GLEventListener {
 
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
-        GL gl2 = drawable.getGL();
+
         // Clear the drawing area
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         // Reset the current matrix to the "identity"
@@ -319,9 +319,8 @@ public class Wiacek implements GLEventListener {
 //        gl.glPopMatrix();
 //        gl.glTranslatef(0.0f,1.8f,0.0f);
 //        }
+         gl.glBindTexture(GL.GL_TEXTURE_2D, t1.getTextureObject());
         gl.glBegin(GL.GL_QUADS);
-       
-        
 //?ciana przednia
         gl.glTexCoord2f(1.0f, 1.0f);
         gl.glVertex3f(-1.0f, -1.0f, 1.0f);
@@ -341,8 +340,10 @@ public class Wiacek implements GLEventListener {
         gl.glVertex3f(1.0f, -1.0f, -1.0f);
         gl.glTexCoord2f(1.0f, 0.0f);
         gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+        gl.glEnd();
 //?ciana lewa
-
+        gl.glBindTexture(GL.GL_TEXTURE_2D, t2.getTextureObject());
+        gl.glBegin(GL.GL_QUADS);
         gl.glTexCoord2f(1.0f, 1.0f);
         gl.glVertex3f(-1.0f, -1.0f, -1.0f);
         gl.glTexCoord2f(0.0f, 1.0f);
@@ -351,12 +352,7 @@ public class Wiacek implements GLEventListener {
         gl.glVertex3f(-1.0f, 1.0f, 1.0f);
         gl.glTexCoord2f(1.0f, 0.0f);
         gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-        
-        gl.glEnd();
 ////?ciana prawa
-
-         gl2.glBegin(GL.GL_QUADS);
-        
         gl.glTexCoord2f(1.0f, 1.0f);
         gl.glVertex3f(1.0f, 1.0f, -1.0f);
         gl.glTexCoord2f(0.0f, 1.0f);
@@ -387,8 +383,6 @@ public class Wiacek implements GLEventListener {
         gl.glTexCoord2f(1.0f, 0.0f);
         gl.glVertex3f(-1.0f, 1.0f, -1.0f);
         gl.glEnd();
-        
-        gl2.glEnd();
     }
 //ostroslup
 
